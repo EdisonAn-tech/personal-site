@@ -1,0 +1,371 @@
+/* ============================================================
+   Edison An — personal site
+   Organized top-to-bottom: tokens, base, nav, sections, footer
+   ============================================================ */
+
+/* ── Design tokens ── */
+:root {
+  /* color */
+  --text:        #1a1a1a;
+  --text-muted:  #666666;
+  --bg:          #fafafa;
+  --border:      #e6e6e6;
+
+  /* type scale (rem) */
+  --fs-body:     1.0625rem;  /* 17px */
+  --fs-meta:     0.9375rem;  /* 15px */
+  --fs-heading:  1.5rem;     /* 24px */
+  --fs-name:     2.75rem;    /* 44px */
+
+  /* spacing scale */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 5rem;     /* between sections */
+
+  /* layout */
+  --measure:    680px;
+  --pad:        1.5rem;
+  --nav-height: 56px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Typography ── */
+h1 {
+  font-size: var(--fs-name);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+h2 {
+  font-size: var(--fs-heading);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: var(--fs-body);
+  font-weight: 600;
+}
+
+p {
+  max-width: 60ch;
+}
+
+/* ── Links ── */
+a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Lists: strip all markers ── */
+ul, ol {
+  list-style: none;
+}
+
+/* ============================================================
+   Navigation
+   ============================================================ */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+header nav {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding: 0 var(--pad);
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.nav-name {
+  font-weight: 600;
+  font-size: var(--fs-meta);
+  letter-spacing: -0.01em;
+}
+
+header nav ul {
+  display: flex;
+  gap: var(--space-3);
+}
+
+header nav ul a {
+  font-size: var(--fs-meta);
+  color: var(--text-muted);
+}
+
+header nav ul a:hover {
+  color: var(--text);
+  text-decoration: none;
+}
+
+header nav ul a.is-active {
+  color: var(--text);
+}
+
+/* ============================================================
+   Layout shell
+   ============================================================ */
+main {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding: 0 var(--pad);
+}
+
+section {
+  padding-block: var(--space-6);
+  scroll-margin-top: calc(var(--nav-height) + var(--space-2));
+}
+
+/* Dividers only between the denser list sections;
+   Hero/About and About/Work rely on whitespace. */
+#work, #projects, #writing, #contact {
+  border-top: 1px solid var(--border);
+}
+
+section h2 {
+  margin-bottom: var(--space-4);
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+#hero {
+  padding-top: calc(var(--space-6) + var(--space-4));
+  padding-bottom: calc(var(--space-6) + var(--space-2));
+  border-top: none;
+}
+
+#hero h1 {
+  margin-bottom: var(--space-3);
+}
+
+.tagline {
+  font-size: 1.25rem;
+  line-height: 1.45;
+  margin-bottom: var(--space-3);
+  max-width: 48ch;
+}
+
+.blurb {
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+  max-width: 56ch;
+}
+
+.section-links {
+  font-size: var(--fs-meta);
+  color: var(--text-muted);
+}
+
+.section-links a {
+  color: var(--text-muted);
+}
+
+.section-links a:hover {
+  color: var(--text);
+}
+
+/* ============================================================
+   About
+   ============================================================ */
+#about p {
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Work
+   ============================================================ */
+.work-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.work-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.work-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.work-role {
+  font-weight: 600;
+}
+
+.work-org {
+  color: var(--text-muted);
+}
+
+.work-time {
+  margin-left: auto;
+  font-size: var(--fs-meta);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.work-desc {
+  color: var(--text-muted);
+  font-size: var(--fs-meta);
+}
+
+.tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.05em 0.4em;
+}
+
+/* ============================================================
+   Projects
+   ============================================================ */
+.project-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+@media (min-width: 640px) {
+  .project-list {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+}
+
+.project-card {
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.project-card h3 {
+  margin-bottom: var(--space-1);
+}
+
+.project-card p {
+  color: var(--text-muted);
+  font-size: var(--fs-meta);
+}
+
+/* ============================================================
+   Writing
+   ============================================================ */
+.writing-note {
+  color: var(--text-muted);
+  font-size: var(--fs-meta);
+  margin-bottom: var(--space-3);
+}
+
+.writing-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.writing-list li {
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Contact
+   ============================================================ */
+#contact p {
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.contact-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.contact-list a {
+  font-weight: 500;
+}
+
+.contact-list a:hover {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+footer {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding: var(--space-4) var(--pad) var(--space-5);
+  border-top: 1px solid var(--border);
+}
+
+footer p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Mobile
+   ============================================================ */
+@media (max-width: 480px) {
+  :root {
+    --fs-name: 2.25rem;
+    --space-6: 4rem;
+  }
+
+  .work-time {
+    margin-left: 0;
+    width: 100%;
+  }
+}
