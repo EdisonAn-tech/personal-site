@@ -1,12 +1,10 @@
 :root {
-  --bg: #141415;
-  --text: #e2e2e2;
+  --bg: #050505;
+  --text: #e6e6e6;
   --bright: #ffffff;
-  --muted: #8a8a8a;
-  --faint: rgba(255, 255, 255, 0.1);
+  --muted: #9c9c9c;
+  --faint: rgba(255, 255, 255, 0.16);
   --font: Georgia, "Times New Roman", serif;
-  --lx: 30vw;
-  --ly: 22vh;
 }
 
 *,
@@ -28,6 +26,7 @@ body {
   font-size: 17px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -44,55 +43,16 @@ a:focus-visible {
   outline-offset: 3px;
 }
 
-/* ── atmosphere ── */
+/* ── the cave, drawn as low-res dithered pixels ── */
 
-.atmosphere {
+.world {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
   z-index: -1;
-  overflow: hidden;
   pointer-events: none;
-  background: var(--bg);
-}
-
-.lamp {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(260px circle at var(--lx) var(--ly), rgba(255, 255, 255, 0.075), transparent 70%),
-    radial-gradient(700px circle at var(--lx) var(--ly), rgba(255, 255, 255, 0.04), transparent 70%);
-  animation: flicker 7s ease-in-out infinite;
-}
-
-@keyframes flicker {
-  0%, 100% { opacity: 1; }
-  18% { opacity: 0.92; }
-  22% { opacity: 0.98; }
-  47% { opacity: 0.9; }
-  53% { opacity: 1; }
-  78% { opacity: 0.94; }
-}
-
-.grain {
-  position: absolute;
-  inset: -50%;
-  opacity: 0.11;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grain 1.2s steps(4) infinite;
-}
-
-@keyframes grain {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-3%, 2%); }
-  50% { transform: translate(2%, -3%); }
-  75% { transform: translate(-2%, -1%); }
-  100% { transform: translate(0, 0); }
-}
-
-.vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 40% 40%, transparent 35%, rgba(0, 0, 0, 0.65) 100%);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 /* ── top bar ── */
@@ -107,9 +67,9 @@ a:focus-visible {
   justify-content: space-between;
   align-items: center;
   padding: calc(14px + env(safe-area-inset-top)) 24px 14px;
-  background: rgba(20, 20, 21, 0.86);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(6, 6, 6, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   opacity: 0;
   transform: translateY(-100%);
   transition: opacity 0.4s ease, transform 0.4s ease;
@@ -123,7 +83,7 @@ a:focus-visible {
   left: 0;
   right: 0;
   height: 28px;
-  background: linear-gradient(to bottom, rgba(20, 20, 21, 0.86), rgba(20, 20, 21, 0));
+  background: linear-gradient(to bottom, rgba(6, 6, 6, 0.82), rgba(6, 6, 6, 0));
   pointer-events: none;
 }
 
@@ -153,7 +113,8 @@ a:focus-visible {
 
 .page {
   max-width: 600px;
-  padding: 0 24px calc(48px + env(safe-area-inset-bottom));
+  padding: 0 24px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95), 0 0 14px rgba(0, 0, 0, 0.85);
 }
 
 section {
@@ -163,7 +124,7 @@ section {
 /* ── intro ── */
 
 .intro {
-  min-height: 78svh;
+  min-height: 82svh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -205,7 +166,7 @@ h1 {
   content: "·";
   display: inline-block;
   margin: 0 10px;
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .toc a:hover,
@@ -223,11 +184,11 @@ h2 {
   color: var(--muted);
 }
 
-#work { margin-top: 112px; }
-#projects { margin-top: 124px; }
-#play { margin-top: 96px; }
-#philosophy { margin-top: 148px; }
-#connect { margin-top: 116px; }
+#work { margin-top: 150px; }
+#projects { margin-top: 160px; }
+#play { margin-top: 136px; }
+#philosophy { margin-top: 176px; }
+#connect { margin-top: 230px; }
 
 /* ── lists ── */
 
@@ -256,6 +217,7 @@ h2 {
   height: 6px;
   border-radius: 50%;
   background: var(--text);
+  box-shadow: 0 0 4px #000;
 }
 
 .label {
@@ -269,6 +231,7 @@ h2 {
   padding: 0 9px;
   border: 1px solid var(--faint);
   border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
   font-size: 13px;
   font-style: italic;
   color: var(--muted);
@@ -306,7 +269,7 @@ figure {
 blockquote {
   margin: 0;
   padding-left: 18px;
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 blockquote p {
@@ -342,7 +305,7 @@ figcaption {
 
 .links a {
   text-decoration: underline;
-  text-decoration-color: rgba(255, 255, 255, 0.25);
+  text-decoration-color: rgba(255, 255, 255, 0.3);
   text-underline-offset: 5px;
   transition: text-decoration-color 0.2s, color 0.2s;
 }
@@ -361,11 +324,19 @@ figcaption {
   text-decoration-color: var(--bright);
 }
 
-footer {
-  margin-top: 120px;
+/* ── connect doubles as the campfire cavern the canvas paints ── */
+
+#connect {
+  position: relative;
+  min-height: 86svh;
+}
+
+#connect footer {
+  margin-top: 44px;
   font-size: 13px;
   font-style: italic;
-  color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.45);
+  text-shadow: 0 1px 2px #000;
 }
 
 @media (min-width: 720px) {
@@ -390,10 +361,5 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .lamp,
-  .grain {
-    animation: none;
   }
 }
