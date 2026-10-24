@@ -5,24 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Edison An</title>
   <meta name="description" content="Edison An. Doing stuff in tech." />
-  <meta name="theme-color" content="#18181a" />
+  <meta name="theme-color" content="#141415" />
 
   <meta property="og:title" content="Edison An" />
   <meta property="og:description" content="Doing stuff in tech." />
   <meta property="og:type" content="website" />
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2318181a'/><text x='50' y='68' text-anchor='middle' font-size='56' font-family='Georgia, serif' fill='%23e6e6e6'>e</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23141415'/><text x='50' y='68' text-anchor='middle' font-size='56' font-family='Georgia, serif' fill='%23e6e6e6'>e</text></svg>" />
 
   <link rel="stylesheet" href="styles.css" />
-  <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 
   <div class="atmosphere" aria-hidden="true">
-    <span class="orb o1"></span>
-    <span class="orb o2"></span>
-    <span class="orb o3"></span>
-    <span class="orb o4"></span>
+    <span class="lamp"></span>
     <span class="grain"></span>
     <span class="vignette"></span>
   </div>
@@ -32,102 +28,76 @@
     <a href="#connect">connect</a>
   </header>
 
-  <main>
+  <main class="page">
 
-    <section id="home" class="panel hero" aria-label="Edison An">
+    <section id="home" class="intro" aria-label="Edison An">
       <h1>Edison An</h1>
       <p class="tagline">doing stuff in tech</p>
-      <a href="#work" class="scroll-hint" aria-label="Scroll to work">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
-      </a>
+      <nav class="toc" aria-label="Sections">
+        <a href="#work">work</a>
+        <a href="#projects">projects</a>
+        <a href="#play">play</a>
+        <a href="#philosophy">philosophy</a>
+        <a href="#connect">connect</a>
+      </nav>
     </section>
 
-    <section id="work" class="panel" aria-labelledby="work-heading">
-      <div class="inner reveal">
-        <h2 id="work-heading"><span class="num">01</span>work</h2>
-        <ul class="list">
-          <li>Ran growth at two startups and learned b2b sales and how to talk to executives and owners</li>
-          <li>Did consulting for a bit and it taught me strategy, business sense, and how to be a good teammate</li>
-          <li>Worked in an emergency department moving patients to their scans and found the spark that pulled me into startups</li>
-        </ul>
-      </div>
+    <section id="work" aria-labelledby="work-heading">
+      <h2 id="work-heading">work</h2>
+      <ul class="list">
+        <li>Ran growth at two startups and learned b2b sales and how to talk to executives and owners</li>
+        <li>Did consulting for a bit and it taught me strategy, business sense, and how to be a good teammate</li>
+        <li>Worked in an emergency department moving patients to their scans and found the spark that pulled me into startups</li>
+      </ul>
     </section>
 
-    <section id="projects" class="panel" aria-labelledby="projects-heading">
-      <div class="inner reveal">
-        <h2 id="projects-heading"><span class="num">02</span>projects</h2>
-        <ul class="list">
-          <li>Led strategy at a run club (nonprofit) and learned how to build community and market it</li>
-          <li>Applying AI to workflows at a local community health clinic <span class="tag">in progress</span></li>
-        </ul>
-      </div>
+    <section id="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">projects</h2>
+      <ul class="list">
+        <li>Led strategy at a run club (nonprofit) and learned how to build community and market it</li>
+        <li>Applying AI to workflows at a local community health clinic <span class="tag">in progress</span></li>
+      </ul>
     </section>
 
-    <section id="play" class="panel" aria-labelledby="play-heading">
-      <div class="inner reveal">
-        <h2 id="play-heading"><span class="num">03</span>play</h2>
-        <ul class="list">
-          <li>Ballroom dancing (waltz and bachata)</li>
-          <li>Running</li>
-          <li>MMA (watching and training)</li>
-          <li>Reading and writing in a coffee shop on a slow weekend morning</li>
-          <li>Soaking in hot springs and jacuzzis</li>
-          <li><span class="label">Fav foods:</span> Japanese curry, beef stew, and napa cabbage tofu pork stew</li>
-        </ul>
-      </div>
+    <section id="play" aria-labelledby="play-heading">
+      <h2 id="play-heading">play</h2>
+      <ul class="list">
+        <li>Ballroom dancing (waltz and bachata)</li>
+        <li>Running</li>
+        <li>MMA (watching and training)</li>
+        <li>Reading and writing in a coffee shop on a slow weekend morning</li>
+        <li>Soaking in hot springs and jacuzzis</li>
+        <li><span class="label">Fav foods:</span> Japanese curry, beef stew, and napa cabbage tofu pork stew</li>
+      </ul>
     </section>
 
-    <section id="philosophy" class="panel" aria-labelledby="philosophy-heading">
-      <div class="inner reveal">
-        <h2 id="philosophy-heading"><span class="num">04</span>philosophy</h2>
-        <ul class="books">
-          <li><cite>Man’s Search for Meaning</cite><span>Viktor E. Frankl</span></li>
-          <li><cite>Nicomachean Ethics</cite><span>Aristotle</span></li>
-          <li><cite>The Ethics of Ambiguity</cite><span>Simone de Beauvoir</span></li>
-        </ul>
-        <figure>
-          <blockquote>
-            <p>And in fact, any man who has known real loves, real revolts, real desires, and real will knows quite well that he has no need of any outside guarantee to be sure of his goals; their certitude comes from his own drive. There is a very old saying which goes: <em>“Do what you must, come what may.”</em> That amounts to saying in a different way that the result is not external to the good will which fulfills itself in aiming at it. If it came to be that each man did what he must, existence would be saved in each one without there being any need of dreaming of a paradise where all would be reconciled in death.</p>
-          </blockquote>
-          <figcaption>Simone de Beauvoir, <cite>The Ethics of Ambiguity</cite></figcaption>
-        </figure>
-      </div>
+    <section id="philosophy" aria-labelledby="philosophy-heading">
+      <h2 id="philosophy-heading">philosophy</h2>
+      <ul class="books">
+        <li><cite>Man’s Search for Meaning</cite><span>Viktor E. Frankl</span></li>
+        <li><cite>Nicomachean Ethics</cite><span>Aristotle</span></li>
+        <li><cite>The Ethics of Ambiguity</cite><span>Simone de Beauvoir</span></li>
+      </ul>
+      <figure>
+        <blockquote>
+          <p>And in fact, any man who has known real loves, real revolts, real desires, and real will knows quite well that he has no need of any outside guarantee to be sure of his goals; their certitude comes from his own drive. There is a very old saying which goes: <em>“Do what you must, come what may.”</em> That amounts to saying in a different way that the result is not external to the good will which fulfills itself in aiming at it. If it came to be that each man did what he must, existence would be saved in each one without there being any need of dreaming of a paradise where all would be reconciled in death.</p>
+        </blockquote>
+        <figcaption>Simone de Beauvoir, <cite>The Ethics of Ambiguity</cite></figcaption>
+      </figure>
     </section>
 
-    <section id="connect" class="panel" aria-labelledby="connect-heading">
-      <div class="inner reveal">
-        <h2 id="connect-heading"><span class="num">05</span>connect</h2>
-        <ul class="links">
-          <li><a href="https://x.com/lightbulb_guy" target="_blank" rel="noopener noreferrer">x <span aria-hidden="true">↗</span></a></li>
-          <li><a href="https://linkedin.com/in/edison-lex-an" target="_blank" rel="noopener noreferrer">linkedin <span aria-hidden="true">↗</span></a></li>
-          <li><a href="mailto:edison.lex.an@gmail.com">email <span aria-hidden="true">↗</span></a></li>
-        </ul>
-      </div>
-      <footer>edison an · 2026</footer>
+    <section id="connect" aria-labelledby="connect-heading">
+      <h2 id="connect-heading">connect</h2>
+      <ul class="links">
+        <li><a href="https://x.com/lightbulb_guy" target="_blank" rel="noopener noreferrer">x <span>@lightbulb_guy</span></a></li>
+        <li><a href="https://linkedin.com/in/edison-lex-an" target="_blank" rel="noopener noreferrer">linkedin <span>edison-lex-an</span></a></li>
+        <li><a href="mailto:edison.lex.an@gmail.com">email <span>edison.lex.an@gmail.com</span></a></li>
+      </ul>
     </section>
+
+    <footer>edison an · 2026</footer>
 
   </main>
-
-  <nav class="dock" aria-label="Jump to section">
-    <a href="#home" aria-label="Home" title="home">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" /></svg>
-    </a>
-    <a href="#work" aria-label="Work" title="work">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M9 7V5h6v2" /></svg>
-    </a>
-    <a href="#projects" aria-label="Projects" title="projects">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z" /><path d="M3 13l9 5 9-5" /></svg>
-    </a>
-    <a href="#play" aria-label="Play" title="play">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
-    </a>
-    <a href="#philosophy" aria-label="Philosophy" title="philosophy">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17c-2 0-3-1.5-3-3.5C4 10 6 7 9 6M17 17c-2 0-3-1.5-3-3.5 0-3.5 2-6.5 5-7.5" /></svg>
-    </a>
-    <a href="#connect" aria-label="Connect" title="connect">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M16 12v1.5a2.5 2.5 0 005 0V12a9 9 0 10-3.5 7.1" /></svg>
-    </a>
-  </nav>
 
   <script src="script.js"></script>
 </body>

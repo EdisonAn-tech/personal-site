@@ -1,42 +1,53 @@
 const root = document.documentElement;
-const sections = [...document.querySelectorAll('main section')];
-const dockLinks = [...document.querySelectorAll('.dock a')];
 const topbar = document.querySelector('.topbar');
-const hero = document.getElementById('home');
-
-const setActive = id => {
-  dockLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`));
-};
-
-const activeObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) setActive(e.target.id);
-  });
-}, { rootMargin: '-45% 0px -45% 0px' });
-
-sections.forEach(s => activeObserver.observe(s));
-
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('is-visible');
-      revealObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.15 });
-
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+const intro = document.getElementById('home');
 
 new IntersectionObserver(([e]) => {
   topbar.classList.toggle('is-shown', !e.isIntersecting);
-}, { threshold: 0.35 }).observe(hero);
+}, { threshold: 0.25 }).observe(intro);
 
-let ticking = false;
-window.addEventListener('scroll', () => {
-  if (ticking) return;
-  ticking = true;
-  requestAnimationFrame(() => {
-    root.style.setProperty('--sy', window.scrollY);
-    ticking = false;
-  });
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const target = { x: innerWidth * 0.3, y: innerHeight * 0.22 };
+const lamp = { ...target };
+let running = false;
+
+const paint = () => {
+  root.style.setProperty('--lx', `${lamp.x}px`);
+  root.style.setProperty('--ly', `${lamp.y}px`);
+};
+
+const step = () => {
+  lamp.x += (target.x - lamp.x) * 0.08;
+  lamp.y += (target.y - lamp.y) * 0.08;
+  paint();
+  if (Math.abs(target.x - lamp.x) + Math.abs(target.y - lamp.y) > 0.5) {
+    requestAnimationFrame(step);
+  } else {
+    running = false;
+  }
+};
+
+const moveTo = (x, y) => {
+  target.x = x;
+  target.y = y;
+  if (reduceMotion) {
+    Object.assign(lamp, target);
+    paint();
+  } else if (!running) {
+    running = true;
+    requestAnimationFrame(step);
+  }
+};
+
+window.addEventListener('pointermove', e => {
+  if (e.pointerType === 'mouse') moveTo(e.clientX, e.clientY);
 }, { passive: true });
+
+const onTouch = e => {
+  const t = e.touches[0];
+  if (t) moveTo(t.clientX, t.clientY);
+};
+window.addEventListener('touchstart', onTouch, { passive: true });
+window.addEventListener('touchmove', onTouch, { passive: true });
+
+paint();
