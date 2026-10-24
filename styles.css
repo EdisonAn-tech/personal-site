@@ -1,371 +1,357 @@
-/* ============================================================
-   Edison An — personal site
-   Organized top-to-bottom: tokens, base, nav, sections, footer
-   ============================================================ */
-
-/* ── Design tokens ── */
 :root {
-  /* color */
-  --text:        #1a1a1a;
-  --text-muted:  #666666;
-  --bg:          #fafafa;
-  --border:      #e6e6e6;
-
-  /* type scale (rem) */
-  --fs-body:     1.0625rem;  /* 17px */
-  --fs-meta:     0.9375rem;  /* 15px */
-  --fs-heading:  1.5rem;     /* 24px */
-  --fs-name:     2.75rem;    /* 44px */
-
-  /* spacing scale */
-  --space-1: 0.5rem;
-  --space-2: 1rem;
-  --space-3: 1.5rem;
-  --space-4: 2rem;
-  --space-5: 3rem;
-  --space-6: 5rem;     /* between sections */
-
-  /* layout */
-  --measure:    680px;
-  --pad:        1.5rem;
-  --nav-height: 56px;
+  --bg: #1c1c1e;
+  --bg-raised: #26262a;
+  --text: #e8e6e1;
+  --muted: #8e8c88;
+  --faint: #3a3a3e;
+  --accent: #c9b99a;
+  --sans: "Inter", system-ui, -apple-system, sans-serif;
+  --serif: "Newsreader", Georgia, serif;
+  --dock-h: 64px;
 }
 
-/* ── Reset ── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: var(--fs-body);
-  line-height: 1.6;
-  color: var(--text);
+  margin: 0;
   background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Typography ── */
-h1 {
-  font-size: var(--fs-name);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+a {
+  color: inherit;
+}
+
+/* ── sections ── */
+
+.panel {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 96px 24px calc(var(--dock-h) + 56px);
+  scroll-margin-top: 0;
+}
+
+.inner {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
 }
 
 h2 {
-  font-size: var(--fs-heading);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-}
-
-h3 {
-  font-size: var(--fs-body);
-  font-weight: 600;
-}
-
-p {
-  max-width: 60ch;
-}
-
-/* ── Links ── */
-a {
-  color: var(--text);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-}
-
-a:focus-visible {
-  outline: 2px solid var(--text);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-/* ── Lists: strip all markers ── */
-ul, ol {
-  list-style: none;
-}
-
-/* ============================================================
-   Navigation
-   ============================================================ */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-}
-
-header nav {
-  max-width: var(--measure);
-  margin-inline: auto;
-  padding: 0 var(--pad);
-  height: var(--nav-height);
+  margin: 0 0 40px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
+  gap: 14px;
 }
 
-.nav-name {
-  font-weight: 600;
-  font-size: var(--fs-meta);
-  letter-spacing: -0.01em;
+.num {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
 }
 
-header nav ul {
-  display: flex;
-  gap: var(--space-3);
+h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--faint);
 }
 
-header nav ul a {
-  font-size: var(--fs-meta);
-  color: var(--text-muted);
+/* ── hero ── */
+
+.hero {
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding-bottom: 96px;
 }
 
-header nav ul a:hover {
-  color: var(--text);
-  text-decoration: none;
-}
-
-header nav ul a.is-active {
-  color: var(--text);
-}
-
-/* ============================================================
-   Layout shell
-   ============================================================ */
-main {
-  max-width: var(--measure);
-  margin-inline: auto;
-  padding: 0 var(--pad);
-}
-
-section {
-  padding-block: var(--space-6);
-  scroll-margin-top: calc(var(--nav-height) + var(--space-2));
-}
-
-/* Dividers only between the denser list sections;
-   Hero/About and About/Work rely on whitespace. */
-#work, #projects, #writing, #contact {
-  border-top: 1px solid var(--border);
-}
-
-section h2 {
-  margin-bottom: var(--space-4);
-}
-
-/* ============================================================
-   Hero
-   ============================================================ */
-#hero {
-  padding-top: calc(var(--space-6) + var(--space-4));
-  padding-bottom: calc(var(--space-6) + var(--space-2));
-  border-top: none;
-}
-
-#hero h1 {
-  margin-bottom: var(--space-3);
+h1 {
+  margin: 0;
+  font-size: clamp(44px, 11vw, 88px);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .tagline {
-  font-size: 1.25rem;
-  line-height: 1.45;
-  margin-bottom: var(--space-3);
-  max-width: 48ch;
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  letter-spacing: 0.12em;
 }
 
-.blurb {
-  color: var(--text-muted);
-  margin-bottom: var(--space-4);
-  max-width: 56ch;
+.scroll-hint {
+  position: absolute;
+  bottom: calc(var(--dock-h) + 40px);
+  left: 50%;
+  translate: -50% 0;
+  color: var(--muted);
+  padding: 8px;
+  animation: bob 2.4s ease-in-out infinite;
 }
 
-.section-links {
-  font-size: var(--fs-meta);
-  color: var(--text-muted);
+.scroll-hint svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.section-links a {
-  color: var(--text-muted);
+@keyframes bob {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(6px); opacity: 1; }
 }
 
-.section-links a:hover {
-  color: var(--text);
+/* ── lists ── */
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-/* ============================================================
-   About
-   ============================================================ */
-#about p {
-  color: var(--text-muted);
+.list li {
+  position: relative;
+  padding: 0 0 0 22px;
+  margin: 0 0 22px;
 }
 
-/* ============================================================
-   Work
-   ============================================================ */
-.work-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
+.list li:last-child {
+  margin-bottom: 0;
 }
 
-.work-item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.work-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.5rem;
-}
-
-.work-role {
-  font-weight: 600;
-}
-
-.work-org {
-  color: var(--text-muted);
-}
-
-.work-time {
-  margin-left: auto;
-  font-size: var(--fs-meta);
-  color: var(--text-muted);
-  white-space: nowrap;
-}
-
-.work-desc {
-  color: var(--text-muted);
-  font-size: var(--fs-meta);
+.list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.8em;
+  width: 8px;
+  height: 1px;
+  background: var(--accent);
 }
 
 .tag {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 0.05em 0.4em;
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 9px;
+  border: 1px solid var(--faint);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  vertical-align: 2px;
+  white-space: nowrap;
 }
 
-/* ============================================================
-   Projects
-   ============================================================ */
-.project-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-3);
+/* ── philosophy ── */
+
+figure {
+  margin: 0;
 }
 
-@media (min-width: 640px) {
-  .project-list {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-4);
-  }
+blockquote {
+  margin: 0;
+  padding-left: 20px;
+  border-left: 1px solid var(--accent);
 }
 
-.project-card {
-  padding: var(--space-3);
-  border: 1px solid var(--border);
-  border-radius: 6px;
+blockquote p {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--text);
 }
 
-.project-card h3 {
-  margin-bottom: var(--space-1);
+blockquote em {
+  font-style: normal;
+  color: var(--accent);
 }
 
-.project-card p {
-  color: var(--text-muted);
-  font-size: var(--fs-meta);
+figcaption {
+  margin-top: 24px;
+  padding-left: 20px;
+  font-size: 14px;
+  color: var(--muted);
 }
 
-/* ============================================================
-   Writing
-   ============================================================ */
-.writing-note {
-  color: var(--text-muted);
-  font-size: var(--fs-meta);
-  margin-bottom: var(--space-3);
+cite {
+  font-style: italic;
 }
 
-.writing-list {
+/* ── connect ── */
+
+#connect {
+  position: relative;
+}
+
+.links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links li + li {
+  border-top: 1px solid var(--faint);
+}
+
+.links a {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.writing-list li {
-  color: var(--text-muted);
-}
-
-/* ============================================================
-   Contact
-   ============================================================ */
-#contact p {
-  color: var(--text-muted);
-  margin-bottom: var(--space-3);
-}
-
-.contact-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-}
-
-.contact-list a {
-  font-weight: 500;
-}
-
-.contact-list a:hover {
-  color: var(--text-muted);
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  font-size: 22px;
   text-decoration: none;
+  transition: color 0.2s, padding 0.2s;
 }
 
-/* ============================================================
-   Footer
-   ============================================================ */
+.links a span {
+  color: var(--muted);
+  font-size: 16px;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.links a:hover,
+.links a:focus-visible {
+  color: var(--accent);
+  padding-left: 6px;
+}
+
+.links a:hover span,
+.links a:focus-visible span {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
 footer {
-  max-width: var(--measure);
-  margin-inline: auto;
-  padding: var(--space-4) var(--pad) var(--space-5);
-  border-top: 1px solid var(--border);
+  position: absolute;
+  bottom: calc(var(--dock-h) + 32px);
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
 }
 
-footer p {
-  font-size: 0.875rem;
-  color: var(--text-muted);
+/* ── dock ── */
+
+.dock {
+  position: fixed;
+  left: 50%;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  translate: -50% 0;
+  display: flex;
+  gap: 2px;
+  padding: 6px;
+  background: rgba(38, 38, 42, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  z-index: 10;
 }
 
-/* ============================================================
-   Mobile
-   ============================================================ */
-@media (max-width: 480px) {
-  :root {
-    --fs-name: 2.25rem;
-    --space-6: 4rem;
+.dock a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  color: var(--muted);
+  transition: color 0.2s, background 0.2s;
+}
+
+.dock a:hover,
+.dock a:focus-visible {
+  color: var(--text);
+}
+
+.dock a.is-active {
+  color: var(--bg);
+  background: var(--accent);
+}
+
+.dock svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+a:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── reveal ── */
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (min-width: 720px) {
+  body {
+    font-size: 18px;
   }
 
-  .work-time {
-    margin-left: 0;
-    width: 100%;
+  blockquote p {
+    font-size: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .scroll-hint {
+    animation: none;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
