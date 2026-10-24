@@ -1,13 +1,12 @@
 :root {
-  --bg: #1c1c1e;
-  --bg-raised: #26262a;
-  --text: #e8e6e1;
-  --muted: #8e8c88;
-  --faint: #3a3a3e;
-  --accent: #c9b99a;
-  --sans: "Inter", system-ui, -apple-system, sans-serif;
-  --serif: "Newsreader", Georgia, serif;
+  --bg: #18181a;
+  --text: #e6e6e6;
+  --bright: #ffffff;
+  --muted: #8c8c8c;
+  --faint: rgba(255, 255, 255, 0.1);
+  --font: Georgia, "Times New Roman", serif;
   --dock-h: 64px;
+  --sy: 0;
 }
 
 *,
@@ -25,20 +24,151 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: var(--sans);
-  font-weight: 300;
+  font-family: var(--font);
   font-size: 17px;
-  line-height: 1.65;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: var(--accent);
+  background: var(--text);
   color: var(--bg);
 }
 
 a {
   color: inherit;
+}
+
+/* ── atmosphere ── */
+
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 50% 0%, #232326 0%, transparent 60%),
+    radial-gradient(100% 70% at 50% 100%, #0d0d0e 0%, transparent 70%),
+    var(--bg);
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  will-change: transform;
+}
+
+.o1 {
+  width: 75vmax;
+  height: 75vmax;
+  top: -30vmax;
+  left: -25vmax;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.07), transparent 65%);
+  translate: 0 calc(var(--sy) * -0.06px);
+  animation: drift-a 38s ease-in-out infinite alternate;
+}
+
+.o2 {
+  width: 65vmax;
+  height: 65vmax;
+  bottom: -25vmax;
+  right: -30vmax;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent 65%);
+  translate: 0 calc(var(--sy) * -0.12px);
+  animation: drift-b 46s ease-in-out infinite alternate;
+}
+
+.o3 {
+  width: 60vmax;
+  height: 60vmax;
+  top: 25%;
+  left: 15%;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.55), transparent 65%);
+  translate: 0 calc(var(--sy) * -0.03px);
+  animation: drift-c 52s ease-in-out infinite alternate;
+}
+
+.o4 {
+  width: 45vmax;
+  height: 45vmax;
+  top: 55%;
+  left: -15vmax;
+  background: radial-gradient(circle, rgba(200, 200, 205, 0.04), transparent 65%);
+  translate: 0 calc(var(--sy) * -0.09px);
+  animation: drift-a 60s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift-a {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(12vw, 8vh) scale(1.15); }
+}
+
+@keyframes drift-b {
+  from { transform: translate(0, 0) scale(1.1); }
+  to { transform: translate(-14vw, -10vh) scale(0.95); }
+}
+
+@keyframes drift-c {
+  from { transform: translate(-6vw, -4vh) scale(0.9); }
+  to { transform: translate(8vw, 6vh) scale(1.2); }
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+/* ── top bar ── */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(16px + env(safe-area-inset-top)) 24px 16px;
+  background: linear-gradient(to bottom, rgba(24, 24, 26, 0.9), rgba(24, 24, 26, 0));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.topbar.is-shown {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.topbar a {
+  font-size: 16px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.topbar a:last-child {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.topbar a:hover,
+.topbar a:focus-visible {
+  color: var(--bright);
 }
 
 /* ── sections ── */
@@ -49,7 +179,6 @@ a {
   flex-direction: column;
   justify-content: center;
   padding: 96px 24px calc(var(--dock-h) + 56px);
-  scroll-margin-top: 0;
 }
 
 .inner {
@@ -61,8 +190,8 @@ a {
 h2 {
   margin: 0 0 40px;
   font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 0.18em;
+  font-weight: normal;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
   display: flex;
@@ -71,7 +200,7 @@ h2 {
 }
 
 .num {
-  color: var(--accent);
+  color: var(--text);
   font-variant-numeric: tabular-nums;
 }
 
@@ -93,17 +222,20 @@ h2::after {
 
 h1 {
   margin: 0;
-  font-size: clamp(44px, 11vw, 88px);
-  font-weight: 300;
-  letter-spacing: -0.03em;
+  font-size: clamp(46px, 12vw, 92px);
+  font-weight: normal;
+  letter-spacing: -0.02em;
   line-height: 1;
+  color: var(--bright);
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.12);
 }
 
 .tagline {
-  margin: 20px 0 0;
+  margin: 22px 0 0;
   color: var(--muted);
-  font-size: 15px;
-  letter-spacing: 0.12em;
+  font-size: 16px;
+  font-style: italic;
+  letter-spacing: 0.06em;
 }
 
 .scroll-hint {
@@ -152,27 +284,63 @@ h1 {
 .list li::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0.8em;
-  width: 8px;
-  height: 1px;
-  background: var(--accent);
+  left: 2px;
+  top: 0.72em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text);
+}
+
+.label {
+  color: var(--muted);
+  font-style: italic;
 }
 
 .tag {
   display: inline-block;
   margin-left: 6px;
-  padding: 1px 9px;
+  padding: 0 10px;
   border: 1px solid var(--faint);
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 13px;
+  font-style: italic;
   color: var(--muted);
-  letter-spacing: 0.04em;
-  vertical-align: 2px;
+  vertical-align: 1px;
   white-space: nowrap;
 }
 
 /* ── philosophy ── */
+
+.books {
+  list-style: none;
+  margin: 0 0 44px;
+  padding: 0;
+}
+
+.books li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2px 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--faint);
+}
+
+.books li:first-child {
+  border-top: 1px solid var(--faint);
+}
+
+.books cite {
+  font-style: italic;
+  color: var(--bright);
+}
+
+.books span {
+  font-size: 14px;
+  color: var(--muted);
+}
 
 figure {
   margin: 0;
@@ -181,21 +349,20 @@ figure {
 blockquote {
   margin: 0;
   padding-left: 20px;
-  border-left: 1px solid var(--accent);
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 blockquote p {
   margin: 0;
-  font-family: var(--serif);
   font-style: italic;
-  font-size: 20px;
-  line-height: 1.6;
+  font-size: 18px;
+  line-height: 1.7;
   color: var(--text);
 }
 
 blockquote em {
   font-style: normal;
-  color: var(--accent);
+  color: var(--bright);
 }
 
 figcaption {
@@ -203,10 +370,6 @@ figcaption {
   padding-left: 20px;
   font-size: 14px;
   color: var(--muted);
-}
-
-cite {
-  font-style: italic;
 }
 
 /* ── connect ── */
@@ -243,13 +406,13 @@ cite {
 
 .links a:hover,
 .links a:focus-visible {
-  color: var(--accent);
+  color: var(--bright);
   padding-left: 6px;
 }
 
 .links a:hover span,
 .links a:focus-visible span {
-  color: var(--accent);
+  color: var(--bright);
   transform: translate(2px, -2px);
 }
 
@@ -260,8 +423,9 @@ footer {
   right: 0;
   text-align: center;
   font-size: 12px;
-  letter-spacing: 0.1em;
-  color: var(--faint);
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.22);
 }
 
 /* ── dock ── */
@@ -274,11 +438,12 @@ footer {
   display: flex;
   gap: 2px;
   padding: 6px;
-  background: rgba(38, 38, 42, 0.72);
+  background: rgba(36, 36, 38, 0.7);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
   z-index: 10;
 }
 
@@ -294,12 +459,12 @@ footer {
 
 .dock a:hover,
 .dock a:focus-visible {
-  color: var(--text);
+  color: var(--bright);
 }
 
 .dock a.is-active {
   color: var(--bg);
-  background: var(--accent);
+  background: var(--text);
 }
 
 .dock svg {
@@ -313,7 +478,7 @@ footer {
 }
 
 a:focus-visible {
-  outline: 1px solid var(--accent);
+  outline: 1px solid var(--text);
   outline-offset: 3px;
 }
 
@@ -335,8 +500,13 @@ a:focus-visible {
     font-size: 18px;
   }
 
+  .topbar {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
   blockquote p {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 
@@ -345,8 +515,13 @@ a:focus-visible {
     scroll-behavior: auto;
   }
 
-  .scroll-hint {
+  .scroll-hint,
+  .orb {
     animation: none;
+  }
+
+  .orb {
+    translate: none;
   }
 
   .js .reveal {

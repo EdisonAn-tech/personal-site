@@ -1,5 +1,8 @@
+const root = document.documentElement;
 const sections = [...document.querySelectorAll('main section')];
 const dockLinks = [...document.querySelectorAll('.dock a')];
+const topbar = document.querySelector('.topbar');
+const hero = document.getElementById('home');
 
 const setActive = id => {
   dockLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`));
@@ -23,3 +26,17 @@ const revealObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.15 });
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+new IntersectionObserver(([e]) => {
+  topbar.classList.toggle('is-shown', !e.isIntersecting);
+}, { threshold: 0.35 }).observe(hero);
+
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    root.style.setProperty('--sy', window.scrollY);
+    ticking = false;
+  });
+}, { passive: true });
